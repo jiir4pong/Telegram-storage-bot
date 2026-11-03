@@ -357,7 +357,12 @@ async def callbacks(q: CallbackQuery, bot: Bot):
             await q.message.answer(f"Delete file #{fid} permanently?", reply_markup=InlineKeyboardMarkup(inline_keyboard=[
                 [InlineKeyboardButton(text="Confirm delete", callback_data=f"x:{fid}"),
                  InlineKeyboardButton(text="Cancel", callback_data="c:0")]]))
-        elif action == "x":\n            removed = await remove_file(bot, fid)\n            await q.message.answer("Deleted." if removed else "File not found.")\n        elif action == "c":\n            await q.message.answer("Cancelled.")\n        elif action == "m":
+        elif action == "x":
+            removed = await remove_file(bot, fid)
+            await q.message.answer("Deleted." if removed else "File not found.")
+        elif action == "c":
+            await q.message.answer("Cancelled.")
+        elif action == "m":
             await q.message.answer(f"Move file #{fid} with /move {fid} FolderName")
     except TelegramAPIError:
         await q.message.answer("Telegram API action failed.")
