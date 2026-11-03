@@ -1,0 +1,16 @@
+services:
+  telegram-storage-bot:
+    build: .
+    restart: unless-stopped
+    environment:
+      BOT_TOKEN: ${BOT_TOKEN:?Set BOT_TOKEN}
+      CHANNEL_ID: ${CHANNEL_ID:?Set CHANNEL_ID}
+      ALLOWED_USER_IDS: ${ALLOWED_USER_IDS:?Set ALLOWED_USER_IDS}
+    volumes:
+      - telegram_storage_data:/data
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+volumes:
+  telegram_storage_data:
